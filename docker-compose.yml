@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+
+  neo4j:
+    hostname: neo4j
+    image: neo4j:5.1-enterprise
+    container_name: neo4j
+    ports:
+      - "7475:7474"
+      - "7688:7687"
+    environment:
+      NEO4J_ACCEPT_LICENSE_AGREEMENT: "yes"
+      NEO4J_AUTH: neo4j/apoc
+      NEO4J_dbms_security_procedures_unrestricted: "apoc.*"
+      NEO4J_dbms_security_procedures_whitelist: "apoc.*"
+      apoc.export.file.enabled: "true"
+      apoc.import.file.enabled: "true"
+    networks:
+      - apoc
+    volumes:
+      - ./neo4j/plugins:/plugins
+      - ./neo4j/import:/var/lib/neo4j/import
+
+  redis:
+    hostname: redis
+    image: redis:6.2.3
+    container_name: redis
+    expose:
+      - '6379'
+    ports:
+      - "6379:6379"
+    environment:
+      REDIS_ARGS: "--requirepass redisPass"
+    networks:
+      - apoc
+
+networks:
+  apoc:
+    driver: bridge
