@@ -15,8 +15,8 @@ Then run:
 docker-compose up -d
 ```
 
-And install and run [Jupyter Notebook](https://jupyter.org/install#jupyter-notebook:
+And finally, install and run [Jupyter Notebook](https://jupyter.org/install#jupyter-notebook) and wait for it to open automatically on the browser:
 
 ```
-jupyter notebook
+cd jupyter && jupyter notebook
 ```
